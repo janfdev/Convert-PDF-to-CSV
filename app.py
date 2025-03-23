@@ -2,7 +2,7 @@ import pdfplumber
 import csv
 
 # Nama file PDF yang akan dikonversi
-pdf_file = "Aljabar_Linear_Matriks.pdf"
+pdf_file = "Fisika_Dasar.pdf"
 
 # Membuka file PDF menggunakan pdfplumber
 with pdfplumber.open(pdf_file) as pdf:
@@ -16,7 +16,7 @@ with pdfplumber.open(pdf_file) as pdf:
         
         # Jika ada tabel, buat file CSV baru untuk setiap tabel
         if table:
-            csv_filename = f"Aljabar_Linear_Matriks_{table_count}.csv"  # Nama file CSV berdasarkan urutan tabel
+            csv_filename = f"Fisika_Dasar_{table_count}.csv"  # Nama file CSV berdasarkan urutan tabel
             table_count += 1
 
             # Pastikan header tabel tetap horizontal dengan mengganti newline (\n) dengan spasi
