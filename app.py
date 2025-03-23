@@ -2,9 +2,9 @@ import pdfplumber
 import csv
 
 # Nama file PDF yang akan dikonversi
-pdf_file = "data.pdf"
+pdf_file = "Aljabar_Linear_Matriks.pdf"
 # Nama file CSV hasil output
-csv_file = "data.csv"
+csv_file = "Aljabar_Linear_Matriks.csv"
 
 # Membuka file PDF menggunakan pdfplumber
 with pdfplumber.open(pdf_file) as pdf:
