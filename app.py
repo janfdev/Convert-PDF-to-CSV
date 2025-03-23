@@ -2,27 +2,37 @@ import pdfplumber
 import csv
 
 # Nama file PDF yang akan dikonversi
-pdf_file = "Aljabar_Linear_Matriks.pdf"
-# Nama file CSV hasil output
-csv_file = "Aljabar_Linear_Matriks.csv"
+pdf_file = "data.pdf"
 
 # Membuka file PDF menggunakan pdfplumber
 with pdfplumber.open(pdf_file) as pdf:
-    # Menyiapkan list untuk menyimpan data tabel
-    data = []
-
+    # Variabel untuk memberi nomor pada file CSV
+    table_count = 1
+    
     # Loop melalui setiap halaman PDF
-    for page in pdf.pages:
+    for page_num, page in enumerate(pdf.pages, start=1):
         # Mendeteksi tabel di halaman
         table = page.extract_table()
         
-        # Menambahkan data tabel ke list jika ada
+        # Jika ada tabel, buat file CSV baru untuk setiap tabel
         if table:
-            data.extend(table)
+            csv_filename = f"data_{table_count}.csv"  # Nama file CSV berdasarkan urutan tabel
+            table_count += 1
 
-# Menyimpan data ke dalam file CSV
-with open(csv_file, mode="w", newline="", encoding="utf-8") as file:
-    writer = csv.writer(file)
-    writer.writerows(data)
+            # Pastikan header tabel tetap horizontal (baris pertama)
+            header = table[0]  # Ambil baris pertama sebagai header
+            rows = table[1:]  # Sisanya adalah data
 
-print(f"Konversi selesai! File CSV disimpan sebagai '{csv_file}'.")
+            # Menulis ke file CSV
+            with open(csv_filename, mode="w", newline="", encoding="utf-8") as file:
+                writer = csv.writer(file)
+                
+                # Tulis header
+                writer.writerow(header)
+                
+                # Tulis data tabel
+                writer.writerows(rows)
+
+            print(f"Tabel dari halaman {page_num} disimpan sebagai '{csv_filename}'.")
+
+print("Konversi selesai!")
