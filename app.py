@@ -1,10 +1,8 @@
 import pdfplumber
 import csv
 
-# Nama file PDF yang akan dikonversi
 pdf_file = "Fisika_Dasar.pdf"
 
-# Membuka file PDF menggunakan pdfplumber
 with pdfplumber.open(pdf_file) as pdf:
     # Variabel untuk memberi nomor pada file CSV
     table_count = 1
@@ -27,10 +25,8 @@ with pdfplumber.open(pdf_file) as pdf:
             with open(csv_filename, mode="w", newline="", encoding="utf-8") as file:
                 writer = csv.writer(file)
                 
-                # Tulis header yang sudah diperbaiki
                 writer.writerow(header)
                 
-                # Tulis data tabel
                 writer.writerows(rows)
 
             print(f"Tabel dari halaman {page_num} disimpan sebagai '{csv_filename}'.")
